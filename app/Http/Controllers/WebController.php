@@ -58,9 +58,10 @@ class WebController extends Controller
 
         $businesses = Business::whereIn('id', $business_id)
             ->orWhere('title', 'LIKE', '%'.$search.'%')
-            ->orWhere('telephone', 'LIKE', '%'.$search.'%')
+            ->orWhere('address', 'LIKE', '%'.$search.'%')
             ->orWhere('zipcode', 'LIKE', '%'.$search.'%')
             ->orWhere('city', 'LIKE', '%'.$search.'%')
+            ->orWhere('telephone', 'LIKE', '%'.$search.'%')
             ->get();
 
         return view('web.filter',[
