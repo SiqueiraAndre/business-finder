@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Business;
+use App\Models\Category;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -41,18 +42,27 @@ class WebController extends Controller
     public function search(Request $request)
     {
 
-        // Get the search value from the request
         $search = $request->input('q');
 
-        $businesses = Business::with('categories')->where('title', 'LIKE', '%'.$search.'%')
+        $category = Category::select('business_id as id')
+            ->where('title', 'LIKE', '%'.$search.'%')
+            ->join('categories_business', 'categories_business.category_id', '=', 'categories.id')
+            ->get()->toArray();
+
+        $business_id[] = 0;
+        foreach($category as $chave => $elemento){
+            if(is_array($elemento)){
+                $business_id[] = $elemento['id'];
+            }
+        }
+
+        $businesses = Business::whereIn('id', $business_id)
+            ->orWhere('title', 'LIKE', '%'.$search.'%')
             ->orWhere('telephone', 'LIKE', '%'.$search.'%')
             ->orWhere('zipcode', 'LIKE', '%'.$search.'%')
             ->orWhere('city', 'LIKE', '%'.$search.'%')
-        //    ->orWhere('title','LIKE', '%'.$search.'%')
-         //   ->orWhereBelongsTo('categories ', '%'.$search.'%')
-            ->paginate(10);
+            ->get();
 
-//        return ($business) ;
         return view('web.filter',[
             'businesses' => $businesses,
             'search' => $search
