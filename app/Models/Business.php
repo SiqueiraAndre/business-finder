@@ -22,6 +22,6 @@ class Business extends Model
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class,'categories_business','business_id','id');
+        return $this->belongsToMany(Category::class,'categories_business','business_id','category_id');
     }
 }

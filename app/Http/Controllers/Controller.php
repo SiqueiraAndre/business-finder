@@ -12,10 +12,4 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function showBusiness($id)
-    {
-        $business = Business::with('categories')->findOrFail($id);
-
-        return response()->json([$business]);
-    }
 }
