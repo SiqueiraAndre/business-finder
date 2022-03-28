@@ -45,7 +45,7 @@
                                 <select class="form-control" name=state required>
                                     <option>Select State</option>
                                     @foreach($states as $state)
-                                        <option value={{$state->id}}>{{$state->name}}</option>
+                                        <option value={{$state->uf}}>{{$state->name}}</option>
                                     @endforeach
                                 </select>
                             </div>

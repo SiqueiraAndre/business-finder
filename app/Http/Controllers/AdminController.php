@@ -66,6 +66,7 @@ class AdminController extends Controller
 
         $createBusiness = Business::create($request->all());
         $createBusiness->setSlug();
+        $createBusiness->categories()->attach($request->category);
         return redirect()->route('admin.home');
 
     }
