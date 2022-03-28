@@ -7,7 +7,7 @@
                 <div class="row">
                     <div class="col-md">
                         <div class="d-flex justify-content-end">
-                            <button class="btn pull-right btn-primary mb-4" >Add business</button>
+                            <a href={{ route('admin.business.create') }} class="btn pull-right btn-primary mb-4">Add business</a>
                         </div>
                     </div>
                 </div>
@@ -17,16 +17,11 @@
                     <div class="card-body">
 
                         @if($businesses->count())
-                            @php
-                                $i=0;
-                            @endphp
                             @foreach($businesses as $business)
-                                @php
-                                    $i++;
-                                @endphp
-                                <a href="/admin/{{$business->slug}}"
-                                <h4 class="text-front">#{{$i}}. {{$business->title}}</h4>
-                                </a>
+
+{{--                                <a href="/admin/{{$business->slug}}"--}}
+                                <h4 class="text-front">#{{$business->id}}. {{$business->title}}</h4>
+{{--                                </a>--}}
                                 <p class="mb-4 pt-0" >
                                     @foreach($business->categories as $category)
                                         <span class="mr-4"> {{$category->title}}

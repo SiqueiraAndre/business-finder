@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Business extends Model
 {
@@ -17,11 +18,20 @@ class Business extends Model
         'zipcode',
         'city',
         'state',
-        'description'
+        'description',
+        'slug'
     ];
 
     public function categories()
     {
         return $this->belongsToMany(Category::class,'categories_business','business_id','category_id');
+    }
+
+    public function setSlug()
+    {
+        if(!empty($this->title)){
+            $this->attributes['slug'] = Str::slug($this->title);
+            $this->save();
+        }
     }
 }

@@ -20,8 +20,10 @@ Auth::routes([
     'reset' => false, // Password Reset Routes...
     'verify' => false, // Email Verification Routes...
 ]);
-Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('home');
-Route::get('/admin/{slug}', [App\Http\Controllers\AdminController::class, 'show'])->name('show');
+Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.home');
+Route::get('/admin/add', [App\Http\Controllers\AdminController::class, 'add'])->name('admin.business.create');
+Route::post('/admin/add', [App\Http\Controllers\AdminController::class, 'store'])->name('admin.business.store');
+//Route::get('/admin/{slug}', [App\Http\Controllers\AdminController::class, 'show'])->name('show');
 
 /*** Pagina Inicial */
 Route::get('/', [WebController::class, 'home'])->name('home');
